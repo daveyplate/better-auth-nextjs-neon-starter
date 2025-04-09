@@ -1,9 +1,6 @@
-# Better Auth Next.js Starter (App Router)
+# Better Auth Next.js Neon Starter (App Router)
 
-[Demo](https://nextjs.better-auth-starter.com)
-
-- [Pages Router](https://github.com/daveyplate/better-auth-nextjs-pages-starter)
-- [TanStack Start](https://github.com/daveyplate/better-auth-tanstack-starter)
+[Demo](https://nextjs-neon.better-auth-starter.com)
 
 ## Installation
 
