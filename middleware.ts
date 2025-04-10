@@ -16,5 +16,5 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
     // Protected routes
-    matcher: ["/auth/settings"]
+    matcher: ["/auth/settings", "/todos"]
 }
