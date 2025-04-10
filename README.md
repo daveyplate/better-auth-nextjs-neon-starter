@@ -4,13 +4,15 @@
 
 ## Installation
 
-First, create a PostgreSQL Database then configure your environment variables.
+First, create a Neon Database then configure your environment variables.
 
 You can generate a `BETTER_AUTH_SECRET` [here](https://www.better-auth.com/docs/installation#set-environment-variables).
 
 ```bash
 BETTER_AUTH_SECRET=""
+DATABASE_AUTHENTICATED_URL=""
 DATABASE_URL=""
+NEXT_PUBLIC_DATABASE_AUTHENTICATED_URL=""
 ```
 
 Then generate your schema and perform migrations with drizzle-kit.
@@ -21,7 +23,11 @@ npx drizzle-kit generate
 npx drizzle-kit migrate
 ```
 
+Then set up RLS on Neon's dashboard, setting the JWKS to your public JWKS endpoint (https://example.com/api/auth/jwks)
+
 - Twitter: [@daveycodez](https://x.com/daveycodez)
+
+☕️ [Buy me a coffee](https://buymeacoffee.com/daveycodez)
 
 ## Features:
 
