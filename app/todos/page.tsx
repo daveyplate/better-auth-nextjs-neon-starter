@@ -2,6 +2,7 @@
 
 import type { Todo } from "@/database/schema"
 import { useToken } from "@/hooks/auth-hooks"
+import { useAuthenticate } from "@daveyplate/better-auth-ui"
 import { neon } from "@neondatabase/serverless"
 import { useEffect, useState } from "react"
 
@@ -11,6 +12,7 @@ const getDb = (token: string) =>
     })
 
 export default function TodoList() {
+    useAuthenticate()
     const { token } = useToken()
     const [todos, setTodos] = useState<Array<Todo>>()
     const [newTask, setNewTask] = useState("")
