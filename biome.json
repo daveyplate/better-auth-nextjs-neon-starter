@@ -1,24 +1,50 @@
 {
-    "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+    "$schema": "https://biomejs.dev/schemas/2.2.4/schema.json",
     "vcs": {
         "enabled": true,
         "clientKind": "git",
-        "useIgnoreFile": true,
-        "defaultBranch": "main"
+        "useIgnoreFile": true
     },
     "files": {
-        "ignore": ["./components/ui/**", "./migrations"]
+        "includes": [
+            "**",
+            "!auth-schema.ts",
+            "!**/*.css",
+            "!src/components/ui/**/*",
+            "!migrations/**/*"
+        ]
     },
     "formatter": {
         "indentStyle": "space",
-        "indentWidth": 4,
-        "lineWidth": 100
+        "indentWidth": 4
     },
     "linter": {
         "rules": {
             "a11y": {
-                "noSvgWithoutTitle": "off",
-                "useGenericFontNames": "off"
+                "noSvgWithoutTitle": "off"
+            },
+            "correctness": {
+                "noUnusedFunctionParameters": "off",
+                "noUnusedImports": {
+                    "fix": "safe",
+                    "level": "info",
+                    "options": {}
+                },
+                "useParseIntRadix": "off",
+                "useHookAtTopLevel": "off"
+            },
+            "style": {
+                "noNonNullAssertion": "off",
+                "useSelfClosingElements": {
+                    "fix": "safe",
+                    "level": "info",
+                    "options": {}
+                },
+                "useTemplate": {
+                    "fix": "safe",
+                    "level": "info",
+                    "options": {}
+                }
             },
             "suspicious": {
                 "noArrayIndexKey": "off",
@@ -28,27 +54,14 @@
                     "options": {}
                 }
             },
-            "style": {
-                "noNonNullAssertion": "off",
-                "useSelfClosingElements": {
-                    "fix": "safe",
-                    "level": "warn"
-                },
-                "useTemplate": {
-                    "fix": "safe",
-                    "level": "warn"
-                }
-            },
-            "correctness": {
-                "noUnusedImports": "info"
-            },
             "nursery": {
-                "noImgElement": "warn",
                 "useSortedClasses": {
                     "fix": "safe",
                     "level": "info",
                     "options": {
-                        "functions": ["cn"]
+                        "functions": [
+                            "cn"
+                        ]
                     }
                 }
             }
@@ -58,6 +71,11 @@
         "formatter": {
             "semicolons": "asNeeded",
             "trailingCommas": "none"
+        }
+    },
+    "json": {
+        "formatter": {
+            "expand": "always"
         }
     }
 }
