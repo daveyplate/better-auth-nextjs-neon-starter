@@ -1,1 +1,0 @@
-ALTER POLICY "crud-authenticated-policy-select" ON "todos" TO authenticated USING (true);
