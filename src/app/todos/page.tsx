@@ -2,7 +2,6 @@
 
 import { useAuthenticate } from "@daveyplate/better-auth-ui"
 import { PostgrestClient } from "@supabase/postgrest-js"
-import { sql } from "drizzle-orm"
 import { Check, Loader2, Plus, Trash2 } from "lucide-react"
 import { useCallback, useEffect, useState } from "react"
 import { toast } from "sonner"
@@ -12,7 +11,7 @@ import type { Todo } from "@/database/schema"
 import { useToken } from "@/hooks/use-token"
 
 const getPg = (accessToken: string) => {
-    return new PostgrestClient(process.env.NEXT_PUBLIC_DATA_API_URL!, {
+    return new PostgrestClient(process.env.NEXT_PUBLIC_NEON_DATA_API_URL!, {
         headers: { Authorization: `Bearer ${accessToken}` }
     })
 }
@@ -33,7 +32,7 @@ export default function TodoList() {
         const { data, error } = await pg
             .from("todos")
             .select("*")
-            .eq("user_id", sessionData?.user?.id)
+            .eq("user_id", sessionData?.user.id)
 
         if (data) {
             setTodos(data)
@@ -81,9 +80,9 @@ export default function TodoList() {
         const pg = getPg(token)
         const { error } = await pg
             .from("todos")
-            .update({ isComplete: !isComplete })
+            .update({ is_complete: !isComplete })
             .eq("id", todoId)
-            .eq("user_id", sql`auth.user_id()`)
+            .eq("user_id", sessionData?.user.id)
 
         await loadTodos()
 
@@ -108,7 +107,7 @@ export default function TodoList() {
             .from("todos")
             .delete()
             .eq("id", todoId)
-            .eq("user_id", sql`auth.user_id()`)
+            .eq("user_id", sessionData?.user.id)
 
         await loadTodos()
 
@@ -174,11 +173,11 @@ export default function TodoList() {
                             <Button
                                 size="icon"
                                 variant={
-                                    todo.isComplete ? "default" : "outline"
+                                    todo.is_complete ? "default" : "outline"
                                 }
-                                className={`h-8 w-8 shrink-0 rounded-full ${todo.isComplete ? "bg-primary" : ""}`}
+                                className={`h-8 w-8 shrink-0 rounded-full ${todo.is_complete ? "bg-primary" : ""}`}
                                 onClick={() =>
-                                    toggleComplete(todo.id, todo.isComplete)
+                                    toggleComplete(todo.id, todo.is_complete)
                                 }
                                 disabled={loadingTodoId === todo.id.toString()}
                             >
@@ -186,13 +185,13 @@ export default function TodoList() {
                                     <Loader2 className="h-4 w-4 animate-spin" />
                                 ) : (
                                     <Check
-                                        className={`h-4 w-4 ${todo.isComplete ? "text-primary-foreground" : ""}`}
+                                        className={`h-4 w-4 ${todo.is_complete ? "text-primary-foreground" : ""}`}
                                     />
                                 )}
                             </Button>
 
                             <span
-                                className={`flex-grow ${todo.isComplete ? "text-muted-foreground line-through" : ""}`}
+                                className={`flex-grow ${todo.is_complete ? "text-muted-foreground line-through" : ""}`}
                             >
                                 {todo.task}
                             </span>

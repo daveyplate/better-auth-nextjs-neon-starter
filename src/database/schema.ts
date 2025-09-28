@@ -16,9 +16,9 @@ export const todos = pgTable(
         id: bigint({ mode: "number" })
             .primaryKey()
             .generatedByDefaultAsIdentity(),
-        userId: text("user_id").notNull().default(sql`(auth.user_id())`),
+        user_id: text("user_id").notNull().default(sql`(auth.user_id())`),
         task: text("task").notNull(),
-        isComplete: boolean("is_complete").notNull().default(false),
+        is_complete: boolean("is_complete").notNull().default(false),
         insertedAt: timestamp("inserted_at", { withTimezone: true })
             .defaultNow()
             .notNull()
@@ -27,7 +27,7 @@ export const todos = pgTable(
         crudPolicy({
             role: authenticatedRole,
             read: true,
-            modify: authUid(table.userId)
+            modify: authUid(table.user_id)
         })
     ]
 )

@@ -14,5 +14,24 @@ export const auth = betterAuth({
     emailAndPassword: {
         enabled: true
     },
-    plugins: [jwt({ jwks: { keyPairConfig: { alg: "RS256" } } })]
+    plugins: [
+        jwt({
+            jwt: {
+                definePayload: (session) => {
+                    return {
+                        id: session.user.id,
+                        sub: session.user.id,
+                        name: session.user.name,
+                        email: session.user.email,
+                        emailVerified: session.user.emailVerified,
+                        image: session.user.image,
+                        createdAt: session.user.createdAt,
+                        updatedAt: session.user.updatedAt,
+                        role: "authenticated"
+                    }
+                }
+            },
+            jwks: { keyPairConfig: { alg: "RS256" } }
+        })
+    ]
 })
